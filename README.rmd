@@ -1,9 +1,21 @@
 ---
-output: github_document
+output:
+  html_document:
+    highlight: py
+    css: "style.css"
+    code_folding: show
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval = F)
+knitr::opts_chunk$set(echo = TRUE, 
+                      eval = T,
+                      class.source="rsource",
+                      class.output="routput")
 # library(clavaan)
 
 knitr::opts_chunk$set(
@@ -26,7 +38,7 @@ This package is censored SEM.
 
 Install the latest release from CRAN:
 
-```{r}
+```{r eval = F}
 devtools::install_github("sooyongl/clavaan")
 ```
 
@@ -35,6 +47,7 @@ The documentation is available at [here](https://sooyongl.github.io/clavaan/).
 
 ```{r}
 library(clavaan)
+library(lavaan)
 library(tidyverse)
 ```
 
@@ -59,42 +72,52 @@ unc.data <- lavaan::simulateData('
 ```{r}
 censored_prop <- c(left = 0.2, right = 0.8)
 
-cen_points <- cenPoint(x = unc.data,
+cen_points <- clavaan:::cenPoint(x = unc.data,
                        lower_quant = censored_prop[1],
                        upper_quant = censored_prop[2])
 
 
-cen.data <- cenData(unc.data, cen_points) %>%
+cen.data <- clavaan:::cenData(unc.data, cen_points) %>%
   data.frame() %>%
   set_names(names(unc.data))
 ```
 
 
-## Compare
+## Compare {.tabset}
 
 ```{r}
 model =
-  'I =~ 1*y1 + 1*y2 + 1*y3 + 1*y4 + 1*y5
-   S =~ 0*y1 + 1*y2 + 2*y3 + 3*y4 + 4*y5
+'I =~ 1*y1 + 1*y2 + 1*y3 + 1*y4 + 1*y5
+ S =~ 0*y1 + 1*y2 + 2*y3 + 3*y4 + 4*y5
 
-  I ~ 1
-  S ~ 1
+ I ~ 1
+ S ~ 1
 
-  I ~~ I + S
-  S ~~ S'
+ I ~~ I + S
+ S ~~ S'
+```
 
-cgrowth(model,
-  data =cen.data,
-  bounds = cen_points,
-  model.type = 'growth') %>%
+### clavaan
+<!-- <div class = "row"> -->
+<!-- <div class = "col-md-6"> -->
+```{r}
+cgrowth(model, data = cen.data, bounds = cen_points) %>%
   summary()
+```
+<!-- </div> -->
 
-growth(model,
-        data =cen.data) %>%
+### lavaan with censored data
+<!-- <div class = "col-md-6"> -->
+```{r}
+growth(model,data = cen.data) %>%
   summary()
+```
+<!-- </div> -->
+<!-- </div> -->
 
-growth(model,
-       data = unc.data) %>%
+### lavaan with original data
+```{r}
+growth(model,data = unc.data) %>%
   summary()
 ```
 

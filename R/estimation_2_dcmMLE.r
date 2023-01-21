@@ -1,4 +1,5 @@
-# bivariate ---------------------------------------------------------------
+#' Compute likelihood of Bivariate censored data
+#'
 ll_censored_bi <- function(theta, XY, bounds, fixed = NULL) {
 
   # theta = startv ; # c(rho_xy)

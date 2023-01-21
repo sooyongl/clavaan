@@ -6,13 +6,6 @@ ll_fun <- function(Y, MU, SIG) {
   # -.5*N*log(2*pi) -.5*N*log(SIG) - (1/(2*SIG))*sum((Y - MU)**2)
   sum(dnorm(Y, MU, SIG, log = T))
 }
-# get dist info -----------------------------------------------------------
-getDataInfo<- function(x) {
-  list(mu = colMeans(x, na.rm = T),
-       sig2 = cov(x, use='pairwise'),
-       corr = cor(x, use='pairwise'))
-}
-
 # censored univariate --------------------
 cUniv <- function(startv, data, bounds) {
 
@@ -113,6 +106,18 @@ cBiv <- function(startv, data, bounds, fixed = NULL, scaling = F) {
   }
 
   out
+}
+
+# vector to bivariate-matrix ----------------------------------------------
+bimat <- function(x) {
+  matrix(x, ncol=2)
+}
+
+# get dist info -----------------------------------------------------------
+getDataInfo<- function(x) {
+  list(mu = colMeans(x, na.rm = T),
+       sig2 = cov(x, use='pairwise'),
+       corr = cor(x, use='pairwise'))
 }
 
 

@@ -1,6 +1,20 @@
 #' @import lavaan
 
-#' cgrowth
+#' Run growth model with censored data
+#'
+#' @description
+#' `cgrowth()`
+#'
+#' @param model lavaan model
+#' @param data data frame
+#' @param bounds censored points
+#' @param ...
+#'
+#'  Additional lavaan arguments
+#'
+#' @returns
+#' `cgrowth()` returns `lavaan` class.
+#' @export
 cgrowth <- function(model = NULL, data = NULL, bounds = NULL, ...) {
 
   mc <- match.call(expand.dots = TRUE)
@@ -16,13 +30,32 @@ cgrowth <- function(model = NULL, data = NULL, bounds = NULL, ...) {
 
   mc[['bounds']] <- NULL
   mc[['data']] <- NULL
+
+  dotdotdot <- list(...)
+  if (is.null(dotdotdot$estimator)) {
+    mc$estimator = "GLS"
+  }
 
   mc[[1L]] <- quote(lavaan::growth)
   eval(mc, parent.frame())
 }
 
-#' csem
-cgrowth <- function(model = NULL, data = NULL, bounds = NULL, ...) {
+#' Run SEM model with censored data
+#'
+#' @description
+#' `csem()`
+#'
+#' @param model lavaan model
+#' @param data data frame
+#' @param bounds censored points
+#' @param ...
+#'
+#'  Additional lavaan arguments
+#'
+#' @returns
+#' `csem()` returns `lavaan` class.
+#' @export
+csem <- function(model = NULL, data = NULL, bounds = NULL, ...) {
 
   mc <- match.call(expand.dots = TRUE)
 
@@ -38,12 +71,31 @@ cgrowth <- function(model = NULL, data = NULL, bounds = NULL, ...) {
   mc[['bounds']] <- NULL
   mc[['data']] <- NULL
 
+  dotdotdot <- list(...)
+  if (is.null(dotdotdot$estimator)) {
+    mc$estimator = "GLS"
+  }
+
   mc[[1L]] <- quote(lavaan::sem)
   eval(mc, parent.frame())
 }
 
-#' ccfa
-cgrowth <- function(model = NULL, data = NULL, bounds = NULL, ...) {
+#' Run CFA model with censored data
+#'
+#' @description
+#' `ccfa()`
+#'
+#' @param model lavaan model
+#' @param data data frame
+#' @param bounds censored points
+#' @param ...
+#'
+#'  Additional lavaan arguments
+#'
+#' @returns
+#' `ccfa()` returns `lavaan` class.
+#' @export
+ccfa <- function(model = NULL, data = NULL, bounds = NULL, ...) {
 
   mc <- match.call(expand.dots = TRUE)
 
@@ -59,10 +111,12 @@ cgrowth <- function(model = NULL, data = NULL, bounds = NULL, ...) {
   mc[['bounds']] <- NULL
   mc[['data']] <- NULL
 
-  mc[[1L]] <- quote(lavaan::sem)
+  dotdotdot <- list(...)
+  if (is.null(dotdotdot$estimator)) {
+    mc$estimator = "GLS"
+  }
+
+  mc[[1L]] <- quote(lavaan::cfa)
   eval(mc, parent.frame())
 }
 
-bimat <- function(x) {
-  matrix(x, ncol=2)
-}

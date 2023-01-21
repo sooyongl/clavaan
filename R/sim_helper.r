@@ -1,3 +1,4 @@
+
 cenPoint <- function(x, lower_quant, upper_quant) {
 
   if(length(lower_quant)==1 & length(upper_quant)==1) {
@@ -20,6 +21,7 @@ cenPoint <- function(x, lower_quant, upper_quant) {
     cen.point_bi
   }
 }
+
 
 cenData <- function(x, cen_point) {
 

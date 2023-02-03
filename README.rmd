@@ -1,17 +1,21 @@
 ---
-output:
-  html_document:
-    highlight: py
-    css: "style.css"
-    code_folding: show
-    toc: true
-    toc_depth: 2
-    toc_float:
-      collapsed: false
-      smooth_scroll: false
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
+# ---
+# output:
+#   html_document:
+#     highlight: py
+#     css: "style.css"
+#     code_folding: show
+#     toc: true
+#     toc_depth: 2
+#     toc_float:
+#       collapsed: false
+#       smooth_scroll: false
+# ---
+        
 knitr::opts_chunk$set(echo = TRUE, 
                       eval = T,
                       class.source="rsource",

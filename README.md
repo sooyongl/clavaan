@@ -19,20 +19,23 @@ The documentation is available at
 ``` r
 library(clavaan)
 library(lavaan)
-#> This is lavaan 0.6-12
+#> Warning: package 'lavaan' was built under R version 4.1.3
+#> This is lavaan 0.6-11
 #> lavaan is FREE software! Please report any bugs.
 library(tidyverse)
-#> ── Attaching packages
-#> ───────────────────────────────────────
-#> tidyverse 1.3.2 ──
-#> ✔ ggplot2 3.4.0      ✔ purrr   0.3.5 
-#> ✔ tibble  3.1.8      ✔ dplyr   1.0.10
-#> ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
-#> ✔ readr   2.1.3      ✔ forcats 0.5.2
-#> Warning: package 'ggplot2' was built under R version 4.2.2
-#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
+#> -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+#> v ggplot2 3.3.6     v purrr   0.3.4
+#> v tibble  3.1.7     v dplyr   1.0.9
+#> v tidyr   1.2.0     v stringr 1.4.0
+#> v readr   2.1.2     v forcats 0.5.1
+#> Warning: package 'ggplot2' was built under R version 4.1.3
+#> Warning: package 'tibble' was built under R version 4.1.3
+#> Warning: package 'tidyr' was built under R version 4.1.3
+#> Warning: package 'readr' was built under R version 4.1.3
+#> Warning: package 'dplyr' was built under R version 4.1.3
+#> -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+#> x dplyr::filter() masks stats::filter()
+#> x dplyr::lag()    masks stats::lag()
 ```
 
 ## Generate Latent growth curve model data
@@ -88,19 +91,19 @@ model =
 ``` r
 cgrowth(model, data = cen.data, bounds = cen_points) %>%
   summary()
-#> lavaan 0.6-12 ended normally after 17 iterations
+#> lavaan 0.6-11 ended normally after 18 iterations
 #> 
 #>   Estimator                                        GLS
 #>   Optimization method                           NLMINB
 #>   Number of model parameters                        10
-#> 
+#>                                                       
 #>   Number of observations                           500
-#> 
+#>                                                       
 #> Model Test User Model:
 #>                                                       
-#>   Test statistic                                 9.852
+#>   Test statistic                                22.462
 #>   Degrees of freedom                                10
-#>   P-value (Chi-square)                           0.454
+#>   P-value (Chi-square)                           0.013
 #> 
 #> Parameter Estimates:
 #> 
@@ -126,12 +129,12 @@ cgrowth(model, data = cen.data, bounds = cen_points) %>%
 #> Covariances:
 #>                    Estimate  Std.Err  z-value  P(>|z|)
 #>   I ~~                                                
-#>     S                 0.116    0.044    2.657    0.008
+#>     S                 0.224    0.042    5.379    0.000
 #> 
 #> Intercepts:
 #>                    Estimate  Std.Err  z-value  P(>|z|)
-#>     I                 3.035    0.055   54.838    0.000
-#>     S                 0.519    0.034   15.379    0.000
+#>     I                 2.988    0.056   52.889    0.000
+#>     S                 0.546    0.032   17.290    0.000
 #>    .y1                0.000                           
 #>    .y2                0.000                           
 #>    .y3                0.000                           
@@ -140,13 +143,13 @@ cgrowth(model, data = cen.data, bounds = cen_points) %>%
 #> 
 #> Variances:
 #>                    Estimate  Std.Err  z-value  P(>|z|)
-#>     I                 0.993    0.105    9.434    0.000
-#>     S                 0.483    0.037   13.160    0.000
-#>    .y1                0.832    0.094    8.895    0.000
-#>    .y2                1.063    0.082   12.903    0.000
-#>    .y3                1.057    0.081   13.026    0.000
-#>    .y4                1.056    0.095   11.062    0.000
-#>    .y5                0.711    0.131    5.447    0.000
+#>     I                 1.031    0.110    9.397    0.000
+#>     S                 0.416    0.033   12.706    0.000
+#>    .y1                0.884    0.095    9.290    0.000
+#>    .y2                1.174    0.088   13.302    0.000
+#>    .y3                0.998    0.076   13.122    0.000
+#>    .y4                0.920    0.081   11.314    0.000
+#>    .y5                0.487    0.106    4.596    0.000
 ```
 
 <!-- </div> -->
@@ -158,17 +161,17 @@ cgrowth(model, data = cen.data, bounds = cen_points) %>%
 ``` r
 growth(model,data = cen.data) %>%
   summary()
-#> lavaan 0.6-12 ended normally after 28 iterations
+#> lavaan 0.6-11 ended normally after 32 iterations
 #> 
 #>   Estimator                                         ML
 #>   Optimization method                           NLMINB
 #>   Number of model parameters                        10
-#> 
+#>                                                       
 #>   Number of observations                           500
-#> 
+#>                                                       
 #> Model Test User Model:
 #>                                                       
-#>   Test statistic                               106.546
+#>   Test statistic                               112.154
 #>   Degrees of freedom                                10
 #>   P-value (Chi-square)                           0.000
 #> 
@@ -196,12 +199,12 @@ growth(model,data = cen.data) %>%
 #> Covariances:
 #>                    Estimate  Std.Err  z-value  P(>|z|)
 #>   I ~~                                                
-#>     S                 0.011    0.019    0.604    0.546
+#>     S                 0.027    0.019    1.400    0.162
 #> 
 #> Intercepts:
 #>                    Estimate  Std.Err  z-value  P(>|z|)
-#>     I                 3.342    0.044   75.630    0.000
-#>     S                 0.297    0.017   17.902    0.000
+#>     I                 3.298    0.047   70.820    0.000
+#>     S                 0.319    0.016   19.689    0.000
 #>    .y1                0.000                           
 #>    .y2                0.000                           
 #>    .y3                0.000                           
@@ -210,13 +213,13 @@ growth(model,data = cen.data) %>%
 #> 
 #> Variances:
 #>                    Estimate  Std.Err  z-value  P(>|z|)
-#>     I                 0.606    0.066    9.169    0.000
-#>     S                 0.099    0.010   10.150    0.000
-#>    .y1                0.629    0.063    9.953    0.000
-#>    .y2                0.745    0.056   13.274    0.000
-#>    .y3                0.674    0.049   13.857    0.000
-#>    .y4                0.549    0.045   12.098    0.000
-#>    .y5                0.170    0.050    3.393    0.001
+#>     I                 0.710    0.073    9.791    0.000
+#>     S                 0.092    0.009    9.931    0.000
+#>    .y1                0.644    0.064   10.018    0.000
+#>    .y2                0.750    0.057   13.258    0.000
+#>    .y3                0.660    0.048   13.849    0.000
+#>    .y4                0.445    0.039   11.440    0.000
+#>    .y5                0.177    0.046    3.833    0.000
 ```
 
 <!-- </div> -->
@@ -227,19 +230,19 @@ growth(model,data = cen.data) %>%
 ``` r
 growth(model,data = unc.data) %>%
   summary()
-#> lavaan 0.6-12 ended normally after 32 iterations
+#> lavaan 0.6-11 ended normally after 32 iterations
 #> 
 #>   Estimator                                         ML
 #>   Optimization method                           NLMINB
 #>   Number of model parameters                        10
-#> 
+#>                                                       
 #>   Number of observations                           500
-#> 
+#>                                                       
 #> Model Test User Model:
 #>                                                       
-#>   Test statistic                                 5.946
+#>   Test statistic                                11.259
 #>   Degrees of freedom                                10
-#>   P-value (Chi-square)                           0.820
+#>   P-value (Chi-square)                           0.338
 #> 
 #> Parameter Estimates:
 #> 
@@ -265,12 +268,12 @@ growth(model,data = unc.data) %>%
 #> Covariances:
 #>                    Estimate  Std.Err  z-value  P(>|z|)
 #>   I ~~                                                
-#>     S                 0.133    0.046    2.896    0.004
+#>     S                 0.179    0.044    4.030    0.000
 #> 
 #> Intercepts:
 #>                    Estimate  Std.Err  z-value  P(>|z|)
-#>     I                 3.015    0.056   53.616    0.000
-#>     S                 0.524    0.035   15.192    0.000
+#>     I                 2.977    0.056   53.617    0.000
+#>     S                 0.567    0.034   16.633    0.000
 #>    .y1                0.000                           
 #>    .y2                0.000                           
 #>    .y3                0.000                           
@@ -279,11 +282,51 @@ growth(model,data = unc.data) %>%
 #> 
 #> Variances:
 #>                    Estimate  Std.Err  z-value  P(>|z|)
-#>     I                 0.984    0.108    9.070    0.000
-#>     S                 0.497    0.038   12.957    0.000
-#>    .y1                0.947    0.101    9.348    0.000
-#>    .y2                1.121    0.086   13.023    0.000
-#>    .y3                1.035    0.080   12.961    0.000
-#>    .y4                1.061    0.100   10.607    0.000
-#>    .y5                0.968    0.146    6.644    0.000
+#>     I                 0.961    0.105    9.148    0.000
+#>     S                 0.489    0.037   13.121    0.000
+#>    .y1                0.940    0.098    9.630    0.000
+#>    .y2                1.050    0.081   13.011    0.000
+#>    .y3                1.005    0.076   13.189    0.000
+#>    .y4                0.828    0.084    9.897    0.000
+#>    .y5                0.872    0.129    6.740    0.000
+```
+
+``` r
+sessionInfo()
+#> R version 4.1.2 (2021-11-01)
+#> Platform: x86_64-w64-mingw32/x64 (64-bit)
+#> Running under: Windows 10 x64 (build 19044)
+#> 
+#> Matrix products: default
+#> 
+#> locale:
+#> [1] LC_COLLATE=English_United States.1252 
+#> [2] LC_CTYPE=English_United States.1252   
+#> [3] LC_MONETARY=English_United States.1252
+#> [4] LC_NUMERIC=C                          
+#> [5] LC_TIME=English_United States.1252    
+#> 
+#> attached base packages:
+#> [1] stats     graphics  grDevices utils     datasets  methods   base     
+#> 
+#> other attached packages:
+#>  [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.9     purrr_0.3.4    
+#>  [5] readr_2.1.2     tidyr_1.2.0     tibble_3.1.7    ggplot2_3.3.6  
+#>  [9] tidyverse_1.3.1 lavaan_0.6-11   clavaan_0.1.0  
+#> 
+#> loaded via a namespace (and not attached):
+#>  [1] tidyselect_1.1.2 xfun_0.31        haven_2.5.0      colorspace_2.0-3
+#>  [5] vctrs_0.4.1      generics_0.1.2   htmltools_0.5.2  stats4_4.1.2    
+#>  [9] yaml_2.3.5       utf8_1.2.2       rlang_1.0.6      pillar_1.8.1    
+#> [13] withr_2.5.0      glue_1.6.2       DBI_1.1.3        dbplyr_2.2.0    
+#> [17] readxl_1.4.0     modelr_0.1.8     lifecycle_1.0.2  cellranger_1.1.0
+#> [21] munsell_0.5.0    gtable_0.3.0     rvest_1.0.3      mvtnorm_1.1-3   
+#> [25] evaluate_0.16    knitr_1.39       tzdb_0.3.0       fastmap_1.1.0   
+#> [29] fansi_1.0.3      broom_0.8.0      backports_1.4.1  scales_1.2.1    
+#> [33] jsonlite_1.8.0   fs_1.5.2         mnormt_2.1.0     hms_1.1.1       
+#> [37] digest_0.6.29    stringi_1.7.6    grid_4.1.2       cli_3.3.0       
+#> [41] tools_4.1.2      magrittr_2.0.3   crayon_1.5.1     pbivnorm_0.6.0  
+#> [45] pkgconfig_2.0.3  MASS_7.3-54      ellipsis_0.3.2   xml2_1.3.3      
+#> [49] reprex_2.0.1     lubridate_1.8.0  assertthat_0.2.1 rmarkdown_2.16  
+#> [53] httr_1.4.4       rstudioapi_0.14  R6_2.5.1         compiler_4.1.2
 ```

@@ -1,4 +1,4 @@
-
+#'
 cenPoint <- function(x, lower_quant, upper_quant) {
 
   if(length(lower_quant)==1 & length(upper_quant)==1) {
@@ -12,9 +12,6 @@ cenPoint <- function(x, lower_quant, upper_quant) {
 
     x <- as.matrix(x)
 
-    # lower_quant <- c(lower_quant, lower_quant)
-    # upper_quant <- c(upper_quant, upper_quant)
-
     cen.point_bi <- lapply(1:ncol(x), function(i) {
       c(quantile(x[,i], lower_quant[i]), quantile(x[,i], upper_quant[i]))
     })
@@ -22,7 +19,7 @@ cenPoint <- function(x, lower_quant, upper_quant) {
   }
 }
 
-
+#'
 cenData <- function(x, cen_point) {
 
   if(length(cen_point) == 1) {

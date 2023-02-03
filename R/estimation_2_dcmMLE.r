@@ -21,20 +21,11 @@ ll_censored_bi <- function(theta, XY, bounds, fixed = NULL) {
   Y <- XY[,2]
 
   # Bounds ----------------------------------------------------------------
-  if(length(bounds) == 2) {
-    lower_x <- bounds[[1]][1]
-    upper_x <- bounds[[1]][2]
+  lower_x <- ifelse(is.na(bounds[[1]][1]), -Inf, bounds[[1]][1])
+  upper_x <- ifelse(is.na(bounds[[1]][2]), Inf, bounds[[1]][2])
 
-    lower_y <- bounds[[2]][1]
-    upper_y <- bounds[[2]][2]
-  } else {
-    lower_x <- bounds[[1]][1]
-    upper_x <- bounds[[1]][2]
-
-    lower_y <- -Inf
-    upper_y <- Inf
-  }
-
+  lower_y <- ifelse(is.na(bounds[[2]][1]), -Inf, bounds[[2]][1])
+  upper_y <- ifelse(is.na(bounds[[2]][2]), Inf, bounds[[2]][2])
 
   # Separate sample ---------------------------------------------------------
   ## n1. Both uncensored
@@ -148,11 +139,11 @@ ll_censored_bi <- function(theta, XY, bounds, fixed = NULL) {
 
   # calculation Blocks ------------------------------------------------------
   ## n1. X >< & Y >< ---------------------
-  a1 <- sum(mvtnorm::dmvnorm(n1,
-            mean = given_mu,
-            sigma = given_sigma,
-            log = T,
-            checkSymmetry = TRUE))
+  a1 <- sum(dmvnorm(n1,
+                    mean = given_mu,
+                    sigma = given_sigma,
+                    log = T,
+                    checkSymmetry = TRUE))
 
   ## n2. X < CL & Y >< ---------------------
   Y <- n2[,2]
@@ -163,8 +154,6 @@ ll_censored_bi <- function(theta, XY, bounds, fixed = NULL) {
     Mu_xy = Mu_x + (rho_xy*Sig_x*(Y - Mu_y)) / Sig_y
     Sig_xy = Sig_x * sqrt(1-rho_xy^2)
     X_lower <- (lower_x - Mu_xy) / Sig_xy
-    # X_lower <- trans_cp(Y, Mu_x, Mu_y, Sig_x, Sig_y, rho_xy, lower_x)
-    # sum(log(pnorm(lower_x, Mu_xy, Sig_xy)))
 
     ll_n2 <- sum(log(pnorm(X_lower))) + ll_fun(Y, Mu_y, Sig_y)
   }
@@ -179,8 +168,6 @@ ll_censored_bi <- function(theta, XY, bounds, fixed = NULL) {
     Mu_xy = Mu_x + (rho_xy*Sig_x*(Y - Mu_y)) / Sig_y
     Sig_xy = Sig_x * sqrt(1-rho_xy^2)
     X_upper <- (upper_x - Mu_xy) / Sig_xy
-    # X_upper <- trans_cp(Y, Mu_x, Mu_y, Sig_x, Sig_y, rho_xy,upper_x)
-    # sum(log(1-pnorm(upper_x, Mu_xy, Sig_xy)))
 
     ll_n3 <- sum(log(1-pnorm(X_upper))) + ll_fun(Y, Mu_y, Sig_y)
   }
@@ -195,8 +182,6 @@ ll_censored_bi <- function(theta, XY, bounds, fixed = NULL) {
     Mu_yx = Mu_y + (rho_xy*Sig_y*(X - Mu_x)) / Sig_x
     Sig_yx = Sig_y * sqrt(1-rho_xy^2)
     Y_lower <- (lower_y - Mu_yx) / Sig_yx
-    # Y_lower <- trans_cp(X, Mu_y, Mu_x, Sig_y, Sig_x, rho_xy,lower_y)
-    # sum(log(pnorm(lower_y, Mu_yx, Sig_yx)))
 
     ll_n4 <- ll_fun(X, Mu_x, Sig_x) + sum(log(pnorm(Y_lower)))
   }
@@ -211,8 +196,6 @@ ll_censored_bi <- function(theta, XY, bounds, fixed = NULL) {
     Mu_yx = Mu_y + (rho_xy*Sig_y*(X - Mu_x)) / Sig_x
     Sig_yx = Sig_y * sqrt(1-rho_xy^2)
     Y_upper <- (upper_y - Mu_yx) / Sig_yx
-    # Y_upper <- trans_cp(X, Mu_y, Mu_x, Sig_y, Sig_x, rho_xy, upper_y)
-    # sum(log(1-pnorm(upper_y, Mu_yx, Sig_yx)))
 
     ll_n5 <- ll_fun(X, Mu_x, Sig_x) + sum(log(1-pnorm(Y_upper)))
   }
@@ -232,8 +215,6 @@ ll_censored_bi <- function(theta, XY, bounds, fixed = NULL) {
       sigma = given_sigma)
 
     a6 <- ifelse(is.nan(log(a6)), 0, n_n6*log(a6))
-
-    # a6 <- n_n6*log(a6)
   }
   ## X < CL & Y > CU ---------------------
   Y <- n7[,2]
@@ -248,8 +229,6 @@ ll_censored_bi <- function(theta, XY, bounds, fixed = NULL) {
       sigma = given_sigma)
 
     a7 <- ifelse(is.nan(log(a7)), 0, n_n7*log(a7))
-
-    # a7 <- n_n7*log(a7)
   }
 
   ## X > CU & Y < CL ---------------------
@@ -266,8 +245,6 @@ ll_censored_bi <- function(theta, XY, bounds, fixed = NULL) {
       sigma = given_sigma)
 
     a8 <- ifelse(is.nan(log(a8)), 0, n_n8*log(a8))
-
-    # a8 <- n_n8*log(a8)
   }
 
   ## X < CL & Y < CL ---------------------
@@ -284,13 +261,9 @@ ll_censored_bi <- function(theta, XY, bounds, fixed = NULL) {
       sigma = given_sigma)
 
     a9 <- ifelse(is.nan(log(a9)), 0, n_n9*log(a9))
-
-    # a9 <- n_n9*log(a9)
-
   }
   # -------------------------------------------------------------------------
   ll <- -(a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 + a9)
-  # ll <- ll* 1 / (1 - abs(theta[1]))
 
   return(ll)
 }

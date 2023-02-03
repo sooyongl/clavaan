@@ -9,8 +9,8 @@ ll_censored <- function(theta, X, bounds) {
   # dnorm = PDF ;  pnorm = CDF
   # L = {cl * F(lower)} * {cu * (1-F(upper))} * {n * NORMAL}
 
-  lower <- bounds[1]
-  upper <- bounds[2]
+  lower <- ifelse(is.na(bounds[1]), -Inf, bounds[1])
+  upper <- ifelse(is.na(bounds[2]), Inf, bounds[2])
 
   n_lower <- length(X[X <= lower])
   n_upper <- length(X[X >= upper])

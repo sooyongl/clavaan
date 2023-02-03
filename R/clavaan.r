@@ -1,5 +1,3 @@
-#' @import lavaan
-
 #' Run growth model with censored data
 #'
 #' @description
@@ -10,7 +8,7 @@
 #' @param bounds censored points
 #' @param ...
 #'
-#'  Additional lavaan arguments
+#'  Additional `lavaan` arguments
 #'
 #' @returns
 #' `cgrowth()` returns `lavaan` class.

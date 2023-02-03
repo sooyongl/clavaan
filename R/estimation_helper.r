@@ -1,23 +1,10 @@
-#--------------------------------------------------------------------------
-# Estimate ----------------------------------------------------------------
-#--------------------------------------------------------------------------
-# log-lik --------------------
+#' log-lik
 ll_fun <- function(Y, MU, SIG) {
   # -.5*N*log(2*pi) -.5*N*log(SIG) - (1/(2*SIG))*sum((Y - MU)**2)
   sum(dnorm(Y, MU, SIG, log = T))
 }
 # censored univariate --------------------
 cUniv <- function(startv, data, bounds) {
-
-  # o <- optim(par = startv,
-  #            fn = ll_censored,
-  #            X = data,
-  #            bounds = bounds#,
-  #            # method = "BFGS"
-  #            # method = "L-BFGS-B",
-  #            # lower=c(-Inf, 0),
-  #            # upper=c(Inf, Inf)
-  # )
 
   data <- data[!is.na(data)]
 
@@ -26,27 +13,15 @@ cUniv <- function(startv, data, bounds) {
               X = data,
               bounds = bounds,
               lower=c(-Inf, 0),
-              upper=c(Inf, Inf)
-  )
-
+              upper=c(Inf, Inf))
   o$par
-
 }
-# censored bivariate --------------------
+
+#' censored bivariate
 cBiv <- function(startv, data, bounds, fixed = NULL, scaling = F) {
 
   if(!is.null(fixed)) {
     # starts : correlation
-
-    # o <- optim(par = startv,
-    #            fn = ll_censored_bi,
-    #            XY = data,
-    #            bounds = bounds,
-    #            fixed = fixed#,
-    #            # method = "L-BFGS-B",
-    #            # lower=c(-Inf),
-    #            # upper=c(0.99)
-    # )
 
     data <- data[complete.cases(data), ]
 
@@ -60,16 +35,6 @@ cBiv <- function(startv, data, bounds, fixed = NULL, scaling = F) {
     )
 
     out <- o$par
-
-    if(scaling) {
-
-      # no need for Scaling  !!!!
-      out <- out
-      # out <- out*(0.2*abs(out) + 0.8)
-
-
-
-    }
 
     out <- out * (sqrt(fixed[3]) * sqrt(fixed[4]))
     out <- list(
@@ -122,7 +87,6 @@ getDataInfo<- function(x) {
 
 
 # -------------------------------------------------------------------------
-
 breakSample <- function(XY, lower_x, upper_x, lower_y, upper_y) {
 
   # Separate sample ---------------------------------------------------------

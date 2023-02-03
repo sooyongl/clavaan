@@ -121,3 +121,8 @@ growth(model,data = unc.data) %>%
   summary()
 ```
 
+
+```{r}
+sessionInfo()
+```
+

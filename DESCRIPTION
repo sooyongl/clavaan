@@ -7,4 +7,4 @@ Maintainer: Sooyong Lee <sooyongl09@gmail.com>
 Description: clavaan fit structural equation modeling with censored data (left-, right, or doubly-censored) via lavaan package.
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3

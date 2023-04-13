@@ -11,6 +11,9 @@ package enables model fitting using the well-established lavaan package.
 This integration allows researchers to accurately analyze censored data
 and draw reliable conclusions from their structural equation models.
 
+This package is based on Sooyong Lee’s doctoral dissertation (Sooyong Lee. (2023). Development of a method for addressing various censoring effects in a latent growth curve modeling framework).
+
+
 ## Install
 
 Install the latest release from CRAN:

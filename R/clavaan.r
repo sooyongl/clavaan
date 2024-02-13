@@ -17,6 +17,14 @@ cgrowth <- function(model = NULL, data = NULL, bounds = NULL, ...) {
 
   mc <- match.call(expand.dots = TRUE)
 
+  if(!is.null(names(bounds))) {
+    nocen_nm <- names(data)[!names(data) %in% names(bounds)]
+    nocen_bounds <- lapply(1:length(nocen_nm), function(x) c(-Inf,Inf))
+    names(nocen_bounds) <- nocen_nm
+    bounds <- append(bounds, nocen_bounds)
+    bounds <- bounds[names(data)]
+  }
+
   sample.info <- cMulti(data, bounds)
 
   colnames(sample.info[[2]]) <- names(data)
@@ -57,6 +65,14 @@ csem <- function(model = NULL, data = NULL, bounds = NULL, ...) {
 
   mc <- match.call(expand.dots = TRUE)
 
+  if(!is.null(names(bounds))) {
+    nocen_nm <- names(data)[!names(data) %in% names(bounds)]
+    nocen_bounds <- lapply(1:length(nocen_nm), function(x) c(-Inf,Inf))
+    names(nocen_bounds) <- nocen_nm
+    bounds <- append(bounds, nocen_bounds)
+    bounds <- bounds[names(data)]
+  }
+
   sample.info <- cMulti(data, bounds)
 
   colnames(sample.info[[2]]) <- names(data)
@@ -96,6 +112,14 @@ csem <- function(model = NULL, data = NULL, bounds = NULL, ...) {
 ccfa <- function(model = NULL, data = NULL, bounds = NULL, ...) {
 
   mc <- match.call(expand.dots = TRUE)
+
+  if(!is.null(names(bounds))) {
+    nocen_nm <- names(data)[!names(data) %in% names(bounds)]
+    nocen_bounds <- lapply(1:length(nocen_nm), function(x) c(-Inf,Inf))
+    names(nocen_bounds) <- nocen_nm
+    bounds <- append(bounds, nocen_bounds)
+    bounds <- bounds[names(data)]
+  }
 
   sample.info <- cMulti(data, bounds)
 

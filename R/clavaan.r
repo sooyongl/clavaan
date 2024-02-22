@@ -5,7 +5,7 @@
 #'
 #' @param model lavaan model
 #' @param data data frame
-#' @param bounds censored points
+#' @param bounds a list of ensored points. It should be a list with the names of censored data and upper/lower censored points. For example, list(y1 = c(1, 5), y2 = c(1, 5))
 #' @param ...
 #'
 #'  Additional `lavaan` arguments
@@ -16,6 +16,8 @@
 cgrowth <- function(model = NULL, data = NULL, bounds = NULL, ...) {
 
   mc <- match.call(expand.dots = TRUE)
+
+  val_inputs(bounds)
 
   if(!is.null(names(bounds))) {
     nocen_nm <- names(data)[!names(data) %in% names(bounds)]
@@ -53,7 +55,7 @@ cgrowth <- function(model = NULL, data = NULL, bounds = NULL, ...) {
 #'
 #' @param model lavaan model
 #' @param data data frame
-#' @param bounds censored points
+#' @param bounds  a list of ensored points. It should be a list with the names of censored data and upper/lower censored points. For example, list(y1 = c(1, 5), y2 = c(1, 5))
 #' @param ...
 #'
 #'  Additional lavaan arguments
@@ -64,6 +66,8 @@ cgrowth <- function(model = NULL, data = NULL, bounds = NULL, ...) {
 csem <- function(model = NULL, data = NULL, bounds = NULL, ...) {
 
   mc <- match.call(expand.dots = TRUE)
+
+  val_inputs(bounds)
 
   if(!is.null(names(bounds))) {
     nocen_nm <- names(data)[!names(data) %in% names(bounds)]
@@ -101,7 +105,7 @@ csem <- function(model = NULL, data = NULL, bounds = NULL, ...) {
 #'
 #' @param model lavaan model
 #' @param data data frame
-#' @param bounds censored points
+#' @param bounds a list of ensored points. It should be a list with the names of censored data and upper/lower censored points. For example, list(y1 = c(1, 5), y2 = c(1, 5))
 #' @param ...
 #'
 #'  Additional lavaan arguments
@@ -112,6 +116,8 @@ csem <- function(model = NULL, data = NULL, bounds = NULL, ...) {
 ccfa <- function(model = NULL, data = NULL, bounds = NULL, ...) {
 
   mc <- match.call(expand.dots = TRUE)
+
+  val_inputs(bounds)
 
   if(!is.null(names(bounds))) {
     nocen_nm <- names(data)[!names(data) %in% names(bounds)]

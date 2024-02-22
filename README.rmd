@@ -32,11 +32,11 @@ knitr::opts_chunk$set(
 options(tibble.print_min = 5, tibble.print_max = 5)
 ```
 
-# clavaan 
+# `clavaan` 
 
 ## Overview
 
-The clavaan package is specifically designed for analyzing censored data within the structural equation modeling framework. It is capable of handling right, left, or doubly-censored data. By estimating the censored mean and variance-covariance from the censored data, the package enables model fitting using the well-established lavaan package. This integration allows researchers to accurately analyze censored data and draw reliable conclusions from their structural equation models.
+The `clavaan` package is specifically designed for analyzing censored data within the structural equation modeling framework. It is capable of handling right, left, or doubly-censored data. By estimating the censored mean and variance-covariance from the censored data, the package enables model fitting using the well-established `lavaan` package. This integration allows researchers to accurately analyze censored data and draw reliable conclusions from their structural equation models.
 
 
 ## Install
@@ -58,7 +58,7 @@ suppressPackageStartupMessages(library(tidyverse))
 
 ## Generate Latent growth curve model data
 
-To generate data based on the latent growth model with a mean intercept of 3 and a mean slope of 0.5 using the lavaan package, you can follow the below code:
+To generate data based on the latent growth model with a mean intercept of 3 and a mean slope of 0.5 using the `lavaan` package, you can follow the below code:
 
 ```{r}
 unc.data <- lavaan::simulateData('
@@ -119,7 +119,8 @@ model =
 <!-- <div class = "row"> -->
 <!-- <div class = "col-md-6"> -->
 ```{r}
-cgrowth(model, data = cen.data, bounds = cen_points) %>%
+cgrowth(model, data = cen.data, 
+        bounds = cen_points)%>%
   summary()
 ```
 <!-- </div> -->
